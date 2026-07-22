@@ -1,9 +1,9 @@
 #importing...
-from flask import Flask, redirect
+from flask import Flask, redirect, request
 from urllib.parse import urlencode
 import os
 from dotenv import load_dotenv
-import requests 
+import requests
 #=== log in ===
 
 load_dotenv()
@@ -19,5 +19,21 @@ def login():
     }
     auth_url = "https://accounts.spotify.com/authorize?" + urlencode(params)
     return redirect(auth_url)
+
+@app.route("/callback")
+def get_info():
+    code = request.args.get("code")
+    token_params = {
+        "grant_type": "authorization_code",
+        "code": code,
+        "redirect_uri": "http://127.0.0.1:5000/callback",
+        "client_id": os.getenv("SPOTIFY_CLIENT_ID"),
+        "client_secret": os.getenv("SPOTIFY_CLIENT_SECRET")
+    }
+    response = requests.post("https://accounts.spotify.com/api/token", data=token_params)
+    tokens = response.json()
+    return tokens
+    
+
 if __name__ == "__main__":
     app.run(debug=True)
