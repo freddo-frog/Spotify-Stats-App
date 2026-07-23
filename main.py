@@ -1,5 +1,5 @@
 #importing...
-from flask import Flask, redirect, request
+from flask import Flask, redirect, request, session
 from urllib.parse import urlencode
 import os
 from dotenv import load_dotenv
@@ -8,6 +8,7 @@ import requests
 
 load_dotenv()
 app = Flask(__name__)
+app.secret_key = os.getenv("FLASK_SECRET_KEY")
 
 @app.route("/login")
 def login():
@@ -32,7 +33,8 @@ def get_info():
     }
     response = requests.post("https://accounts.spotify.com/api/token", data=token_params)
     tokens = response.json()
-    return tokens
+    session["access_token"] = tokens["access_token"]
+    return "Logged in!"
     
 
 if __name__ == "__main__":
