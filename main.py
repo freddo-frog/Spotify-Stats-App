@@ -49,6 +49,16 @@ def get_tracks():
         results.append(f"{song_name} - {artist_name}")
     return results
 
+@app.route("/top-artists")
+def get_artists():
+    token = session.get("access_token")
+    artists = requests.get("https://api.spotify.com/v1/me/top/artists",headers={"Authorization": f"Bearer {token}"})
+    data = artists.json()
+    results = []
+    for item in data["items"]:
+        artist_name = item["name"]
+        results.append(f"{artist_name}")
+    return results
 
 if __name__ == "__main__":
     app.run(debug=True)
