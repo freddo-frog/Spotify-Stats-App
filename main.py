@@ -4,6 +4,7 @@ from urllib.parse import urlencode
 import os
 from dotenv import load_dotenv
 import requests
+import json 
 #=== log in ===
 
 load_dotenv()
@@ -35,7 +36,19 @@ def get_info():
     tokens = response.json()
     session["access_token"] = tokens["access_token"]
     return "Logged in!"
-    
+
+@app.route("/top-tracks")
+def get_tracks():
+    token = session.get("access_token")
+    tracks = requests.get("https://api.spotify.com/v1/me/top/tracks", headers={"Authorization": f"Bearer {token}"})
+    data = tracks.json()
+    results = []
+    for item in data["items"]:
+        song_name = item["name"]
+        artist_name = item["artists"][0]["name"]
+        results.append(f"{song_name} - {artist_name}")
+    return results
+
 
 if __name__ == "__main__":
     app.run(debug=True)
