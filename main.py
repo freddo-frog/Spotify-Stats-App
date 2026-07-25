@@ -17,7 +17,7 @@ def login():
         "client_id": os.getenv("SPOTIFY_CLIENT_ID"),
         "redirect_uri": "http://127.0.0.1:5000/callback",
         "response_type": "code",
-        "scope": "user-top-read"
+        "scope": "user-top-read user-read-recently-played"
     }
     auth_url = "https://accounts.spotify.com/authorize?" + urlencode(params)
     return redirect(auth_url)
@@ -60,5 +60,17 @@ def get_artists():
         results.append(f"{artist_name}")
     return results
 
+@app.route("/recently-played")
+def get_recently_played():
+    token = session.get("access_token")
+    recents = requests.get("https://api.spotify.com/v1/me/player/recently-played", headers={"Authorization": f"Bearer {token}"})
+    data = recents.json()
+    results = []
+    for item in data["items"]:
+        name = item["track"]["artists"][0]["name"]
+        time = item["played_at"]
+        results.append(f"{name}. played at: {time}")
+    return results
+    
 if __name__ == "__main__":
     app.run(debug=True)
