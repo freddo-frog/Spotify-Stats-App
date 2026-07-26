@@ -40,7 +40,11 @@ def get_info():
 @app.route("/top-tracks")
 def get_tracks():
     token = session.get("access_token")
-    tracks = requests.get("https://api.spotify.com/v1/me/top/tracks", headers={"Authorization": f"Bearer {token}"})
+    time_range = request.args.get("time_range", "medium_term")
+    params = {
+        "time_range": time_range
+    }
+    tracks = requests.get("https://api.spotify.com/v1/me/top/tracks", headers={"Authorization": f"Bearer {token}"}, params=params)
     data = tracks.json()
     results = []
     for item in data["items"]:
@@ -52,7 +56,11 @@ def get_tracks():
 @app.route("/top-artists")
 def get_artists():
     token = session.get("access_token")
-    artists = requests.get("https://api.spotify.com/v1/me/top/artists",headers={"Authorization": f"Bearer {token}"})
+    time_range = request.args.get("time_range", "medium_term")
+    params = {
+        "time_range": time_range
+    }
+    artists = requests.get("https://api.spotify.com/v1/me/top/artists",headers={"Authorization": f"Bearer {token}"}, params=params)
     data = artists.json()
     results = []
     for item in data["items"]:
@@ -67,9 +75,10 @@ def get_recently_played():
     data = recents.json()
     results = []
     for item in data["items"]:
-        name = item["track"]["artists"][0]["name"]
+        song_name = item["track"]["name"]
+        artist_name = item["track"]["artist"][0]["name"]
         time = item["played_at"]
-        results.append(f"{name}. played at: {time}")
+        results.append(f"{song_name} - {artist_name}\n played at: {time}")
     return results
     
 if __name__ == "__main__":
