@@ -5,6 +5,7 @@ import os
 from dotenv import load_dotenv
 import requests
 import json 
+import time
 #=== log in ===
 
 load_dotenv()
@@ -35,6 +36,8 @@ def get_info():
     response = requests.post("https://accounts.spotify.com/api/token", data=token_params)
     tokens = response.json()
     session["access_token"] = tokens["access_token"]
+    session["refresh_token"] = tokens["refresh_token"]
+    session["expires_at"] = time.time() + tokens["expires_in"]
     return "Logged in!"
 
 @app.route("/top-tracks")
@@ -80,6 +83,27 @@ def get_recently_played():
         time = item["played_at"]
         results.append(f"{song_name} - {artist_name}\n played at: {time}")
     return results
-    
+
+def get_valid_token():
+    access_token = session.get("access_token")
+    refresh_token = session.get("refresh_token")
+    expires_at = session.get("expires_at")
+    if time.time() >= expires_at:
+        token_params_refresh = {
+            "grant_type": "refresh_token",
+            "refresh_token": refresh_token,
+            "client_id": os.getenv("SPOTIFY_CLIENT_ID"),
+            "client_secret": os.getenv("SPOTIFY_CLIENT_SECRET")
+        }
+        response = requests.post("https://accounts.spotify.com/api/token", data=token_params_refresh)
+        token = response.json()
+        session["expires_at"] = time.time() + token["expires_in"]
+        session["access_token"] = token["access_token"]
+        new_token = session["access_token"]
+        return new_token
+
+    else:
+        return access_token
+
 if __name__ == "__main__":
     app.run(debug=True)
