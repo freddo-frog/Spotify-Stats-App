@@ -42,7 +42,7 @@ def get_info():
 
 @app.route("/top-tracks")
 def get_tracks():
-    token = session.get("access_token")
+    token = get_valid_token()
     time_range = request.args.get("time_range", "medium_term")
     params = {
         "time_range": time_range
@@ -58,7 +58,7 @@ def get_tracks():
 
 @app.route("/top-artists")
 def get_artists():
-    token = session.get("access_token")
+    token = get_valid_token()
     time_range = request.args.get("time_range", "medium_term")
     params = {
         "time_range": time_range
@@ -73,13 +73,13 @@ def get_artists():
 
 @app.route("/recently-played")
 def get_recently_played():
-    token = session.get("access_token")
+    token = get_valid_token()
     recents = requests.get("https://api.spotify.com/v1/me/player/recently-played", headers={"Authorization": f"Bearer {token}"})
     data = recents.json()
     results = []
     for item in data["items"]:
         song_name = item["track"]["name"]
-        artist_name = item["track"]["artist"][0]["name"]
+        artist_name = item["track"]["artists"][0]["name"]
         time = item["played_at"]
         results.append(f"{song_name} - {artist_name}\n played at: {time}")
     return results
