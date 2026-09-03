@@ -1,5 +1,5 @@
 #importing...
-from flask import Flask, redirect, request, session
+from flask import Flask, redirect, request, session, render_template
 from urllib.parse import urlencode
 import os
 from dotenv import load_dotenv
@@ -54,7 +54,7 @@ def get_tracks():
         song_name = item["name"]
         artist_name = item["artists"][0]["name"]
         results.append(f"{song_name} - {artist_name}")
-    return results
+    return render_template("top_tracks.html", results =results)
 
 @app.route("/top-artists")
 def get_artists():
@@ -69,7 +69,7 @@ def get_artists():
     for item in data["items"]:
         artist_name = item["name"]
         results.append(f"{artist_name}")
-    return results
+    return render_template("top_artists.html", results=results)
 
 @app.route("/recently-played")
 def get_recently_played():
@@ -82,7 +82,7 @@ def get_recently_played():
         artist_name = item["track"]["artists"][0]["name"]
         time = item["played_at"]
         results.append(f"{song_name} - {artist_name}\n played at: {time}")
-    return results
+    return render_template("recently_played.html", results=results)
 
 def get_valid_token():
     access_token = session.get("access_token")
@@ -104,6 +104,10 @@ def get_valid_token():
 
     else:
         return access_token
+
+@app.route("/")
+def home():
+    return render_template("index.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
