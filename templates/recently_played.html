@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Recently played tracks</title>
-</head>
-
-<body>
-    <h1>Recently played tracks</h1>
-    <ul>
-        {% for track in results %}
-        <li>{{ track }}</li>
-        {% endfor %}
-    </ul>
-</body>
-
-</html>
+{% block content %}
+<h1>Recently Played</h1>
+<ul>
+    {% for track in results %}
+    <li>{{ track }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

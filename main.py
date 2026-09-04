@@ -1,5 +1,5 @@
 #importing...
-from flask import Flask, redirect, request, session, render_template
+from flask import Flask, redirect, request, session, render_template, url_for
 from urllib.parse import urlencode
 import os
 from dotenv import load_dotenv
@@ -38,7 +38,7 @@ def get_info():
     session["access_token"] = tokens["access_token"]
     session["refresh_token"] = tokens["refresh_token"]
     session["expires_at"] = time.time() + tokens["expires_in"]
-    return "Logged in!"
+    return redirect(url_for("home"))
 
 @app.route("/top-tracks")
 def get_tracks():

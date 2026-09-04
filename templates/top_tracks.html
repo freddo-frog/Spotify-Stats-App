@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Top Tracks</title>
-</head>
-<body>
-    <h1>Top Tracks</h1>
-    <ul>
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Top Tracks</h1>
+<ul>
     {% for track in results %}
-        <li>{{ track }}</li>
+    <li>{{ track }}</li>
     {% endfor %}
-    </ul>
-</body>
-</html>
+</ul>
+{% endblock %}
