@@ -6,8 +6,28 @@ from dotenv import load_dotenv
 import requests
 import json 
 import time
-#=== log in ===
 
+#functions:
+def get_valid_token():
+    access_token = session.get("access_token")
+    refresh_token = session.get("refresh_token")
+    expires_at = session.get("expires_at")
+    if time.time() >= expires_at:
+        token_params_refresh = {
+            "grant_type": "refresh_token",
+            "refresh_token": refresh_token,
+            "client_id": os.getenv("SPOTIFY_CLIENT_ID"),
+            "client_secret": os.getenv("SPOTIFY_CLIENT_SECRET")
+        }
+        response = requests.post("https://accounts.spotify.com/api/token", data=token_params_refresh)
+        token = response.json()
+        session["expires_at"] = time.time() + token["expires_in"]
+        session["access_token"] = token["access_token"]
+        new_token = session["access_token"]
+        return new_token
+    else:
+        return access_token
+#=== app routes ===
 load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY")
@@ -38,7 +58,7 @@ def get_info():
     session["access_token"] = tokens["access_token"]
     session["refresh_token"] = tokens["refresh_token"]
     session["expires_at"] = time.time() + tokens["expires_in"]
-    return redirect(url_for("home"))
+    return redirect(url_for("dashboard"))
 
 @app.route("/top-tracks")
 def get_tracks():
@@ -60,28 +80,7 @@ def get_recently_played():
     results = fetch_recently_played(token)
     return render_template("recently_played.html", results=results)
 
-def get_valid_token():
-    access_token = session.get("access_token")
-    refresh_token = session.get("refresh_token")
-    expires_at = session.get("expires_at")
-    if time.time() >= expires_at:
-        token_params_refresh = {
-            "grant_type": "refresh_token",
-            "refresh_token": refresh_token,
-            "client_id": os.getenv("SPOTIFY_CLIENT_ID"),
-            "client_secret": os.getenv("SPOTIFY_CLIENT_SECRET")
-        }
-        response = requests.post("https://accounts.spotify.com/api/token", data=token_params_refresh)
-        token = response.json()
-        session["expires_at"] = time.time() + token["expires_in"]
-        session["access_token"] = token["access_token"]
-        new_token = session["access_token"]
-        return new_token
-
-    else:
-        return access_token
-
-#functions for dashboard
+#dashboard helper functions
 def fetch_top_tracks(token, time_range):
     params={"time_range": time_range}
     tracks=requests.get("https://api.spotify.com/v1/me/top/tracks", headers={"Authorization": f"Bearer {token}"}, params=params)
@@ -113,6 +112,16 @@ def fetch_recently_played(token):
         played_at = item["played_at"]
         results.append(f"{song_name} - {artist_name}\n played at: {played_at}")
     return results
+
+#=== dashboard route ===
+@app.route("/dashboard")
+def dashboard():
+    token = get_valid_token()
+    time_range = request.args.get("time_range", "medium_term")
+    tracks = fetch_top_tracks(token, time_range)
+    artists = fetch_top_artists(token, time_range)
+    recents = fetch_recently_played(token)
+    return render_template("dashboard.html", tracks =tracks, artists=artists, recently_played=recents)
 
 @app.route("/")
 def home():
