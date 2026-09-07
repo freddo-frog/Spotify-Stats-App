@@ -1,13 +1,107 @@
 body {
     background: #121212;
     font-family: "IBM Plex Sans", sans-serif;
+    color: #FFFFFF;
+    min-height: 100vh;
+}
+
+nav {
+    background: #181818;
+    padding: 16px 24px;
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+    color: #1ED760;
+}
+
+nav a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.brand {
+    margin-left: auto;
+    font-family: "Fraunces", serif;
+    font-size: 1.25rem;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
 }
 
 #box1 {
+    text-align: center;
     border: none;
     width: 260px;
     height: 650px;
     background: #181818;
     color: #FFFFFF;
     border-radius: 16px;
+}
+
+#box2 {
+    text-align: center;
+    border: none;
+    width: 275px;
+    height: 500px;
+    background: #181818;
+    color: #FFFFFF;
+    border-radius: 16px;
+}
+
+#box3 {
+    text-align: left;
+    border: none;
+    width: 700px;
+    height: 585px;
+    background: #181818;
+    border-radius: 16px;
+    color: #FFFFFF;
+}
+
+#welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 16px;
+    min-height: 70vh;
+}
+
+#welcome a {
+    background: #1ED760;
+    color: #121212;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+#tracks {
+    background: #181818;
+    text-align: center;
+    width: 600px;
+    height: 500px;
+    border-radius: 16px;
+    margin: 0 auto;
+}
+
+#artists {
+    background: #181818;
+    text-align: center;
+    width: 600px;
+    height: 500px;
+    border-radius: 16px;
+    margin: 0 auto;
+}
+
+#recent {
+    background: #181818;
+    text-align: center;
+    width: 600px;
+    height: 500px;
+    border-radius: 16px;
+    margin: 0 auto;
 }

@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Recently Played</h1>
-<ul>
-    {% for track in results %}
-    <li>{{ track }}</li>
-    {% endfor %}
-</ul>
+<div id="recent">
+    <h1>Recently Played</h1>
+    <ul>
+        {% for track in results %}
+        <li>{{ track }}</li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

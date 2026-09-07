@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Top Tracks</h1>
-<ul>
-    {% for track in results %}
-    <li>{{ track }}</li>
-    {% endfor %}
-</ul>
+<div id="tracks">
+    <h1>Top Tracks</h1>
+    <ul>
+        {% for track in results %}
+        <li>{{ track }}</li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

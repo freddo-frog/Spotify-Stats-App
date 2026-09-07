@@ -3,7 +3,8 @@
 
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=IBM+Plex+Sans:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=IBM+Plex+Sans:wght@400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static', filename='style.css') }}">
     <meta charset="UTF-8">
     <title>rewind</title>
@@ -15,6 +16,7 @@
         <a href="{{ url_for('get_tracks') }}">Top Tracks</a>
         <a href="{{ url_for('get_artists') }}">Top Artists</a>
         <a href="{{ url_for('get_recently_played') }}">Recently Played</a>
+        <span class="brand"> Rewind</span>
     </nav>
 
     {% block content %}{% endblock %}

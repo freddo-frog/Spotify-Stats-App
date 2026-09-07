@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1> Top Artists</h1>
-<ul>
-    {% for artist in results%}
-    <li> {{ artist }}</li>
-    {% endfor%}
-</ul>
+<div id="artists">
+    <h1>Top Artists</h1>
+    <ul>
+        {% for artist in results%}
+        <li> {{ artist }}</li>
+        {% endfor%}
+    </ul>
+</div>
 {% endblock%}

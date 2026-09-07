@@ -58,7 +58,7 @@ def get_info():
     session["access_token"] = tokens["access_token"]
     session["refresh_token"] = tokens["refresh_token"]
     session["expires_at"] = time.time() + tokens["expires_in"]
-    return redirect(url_for("dashboard"))
+    return redirect(url_for("home"))
 
 @app.route("/top-tracks")
 def get_tracks():
