@@ -32,7 +32,7 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY")
 
-@app.route("/login")
+@app.route("/login")    #login and auth
 def login():
     params = {
         "client_id": os.getenv("SPOTIFY_CLIENT_ID"),
@@ -59,14 +59,14 @@ def get_info():
     session["refresh_token"] = tokens["refresh_token"]
     session["expires_at"] = time.time() + tokens["expires_in"]
     return redirect(url_for("home"))
-
+#get most listened to tracks
 @app.route("/top-tracks")
 def get_tracks():
     token = get_valid_token()
     time_range = request.args.get("time_range", "medium_term")
     results = fetch_top_tracks(token, time_range)
     return render_template("top_tracks.html", results=results)
-
+#get most listened to artists
 @app.route("/top-artists")
 def get_artists():
     token = get_valid_token()
@@ -74,6 +74,7 @@ def get_artists():
     results = fetch_top_artists(token, time_range)
     return render_template("top_artists.html", results=results)
 
+#get recently played tracks
 @app.route("/recently-played")
 def get_recently_played():
     token = get_valid_token()
