@@ -126,7 +126,7 @@ def dashboard():
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.html") #SENDS USER TO INDEX.HTML MAKE THIS NEW LANDING PAGE
 
 if __name__ == "__main__":
     app.run(debug=True)
