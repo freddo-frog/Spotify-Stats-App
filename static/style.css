@@ -105,3 +105,29 @@ nav a {
     border-radius: 16px;
     margin: 0 auto;
 }
+
+#charts {
+    background: #181818;
+    text-align: center;
+    width: 500px;
+    height: 100px;
+    border-radius: 16px;
+    margin: 10 auto;
+}
+
+#recents {
+    background: #181818;
+    text-align: center;
+    width: 500px;
+    height: 100px;
+    border-radius: 16px;
+    margin: 10 auto;
+}
+
+#playlists {
+    background: #181818;
+    text-align: center;
+    width: 500px;
+    border-radius: 16px;
+    margin: 10 auto;
+}
