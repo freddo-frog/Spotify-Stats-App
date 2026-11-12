@@ -43,6 +43,12 @@ def login():
     auth_url = "https://accounts.spotify.com/authorize?" + urlencode(params)
     return redirect(auth_url)
 
+#route that allows user to log out
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("home"))
+
 @app.route("/callback")
 def get_info():
     code = request.args.get("code")
@@ -126,7 +132,7 @@ def dashboard():
 
 @app.route("/")
 def home():
-    return render_template("index.html") #SENDS USER TO INDEX.HTML MAKE THIS NEW LANDING PAGE
+    return render_template("index.html") #SENDS USER TO LANDING PAGE INDEX.HTML
 
 if __name__ == "__main__":
     app.run(debug=True)

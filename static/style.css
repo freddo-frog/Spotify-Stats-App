@@ -19,6 +19,14 @@ nav a {
     text-decoration: none;
 }
 
+/* "Rewind" logo-style home link, top left */
+nav a.home-logo {
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: #1ED760;
+}
+
 .brand {
     margin-left: auto;
     font-family: "Fraunces", serif;
