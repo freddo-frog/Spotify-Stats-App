@@ -66,6 +66,7 @@ nav a {
     align-items: center;
     justify-content: center;
     text-align: center;
+    margin-top: -100px;
     gap: 16px;
     min-height: 70vh;
 }
@@ -106,28 +107,51 @@ nav a {
     margin: 0 auto;
 }
 
-#charts {
-    background: #181818;
-    text-align: center;
-    width: 500px;
-    height: 100px;
-    border-radius: 16px;
-    margin: 10 auto;
+/* Landing page feature cards: a dark rounded panel, three equal items */
+.features {
+    display: flex;
+    gap: 12px;
+    max-width: 900px;
+    margin: 0 auto 48px;
+    padding: 12px;
+    background: #1f1f1f;
+    border-radius: 24px;
 }
 
-#recents {
-    background: #181818;
+.feature {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 16px;
     text-align: center;
-    width: 500px;
-    height: 100px;
-    border-radius: 16px;
-    margin: 10 auto;
+    color: #b3b3b3;
+    border: 1px solid transparent;
+    border-radius: 18px;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 
-#playlists {
-    background: #181818;
-    text-align: center;
-    width: 500px;
-    border-radius: 16px;
-    margin: 10 auto;
+.feature:hover {
+    background: #2a2a2a;
+    border-color: #1ED76066;
+    color: #FFFFFF;
+}
+
+.feature svg {
+    width: 28px;
+    height: 28px;
+    color: #1ED760;
+}
+
+.feature h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: #FFFFFF;
+}
+
+.feature p {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.4;
 }
