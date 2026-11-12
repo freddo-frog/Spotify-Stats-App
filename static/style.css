@@ -66,9 +66,18 @@ nav a {
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin-top: -100px;
     gap: 16px;
-    min-height: 70vh;
+
+    /* green landing card */
+    max-width: 1000px;
+    margin: 24px auto 48px;
+    padding: 56px 32px;
+    border-radius: 28px;
+    border: 1px solid #ffffff14;
+    background:
+        radial-gradient(circle at 90% 15%, #2f5b37 0%, transparent 45%),
+        radial-gradient(circle at 5% 100%, #26472d 0%, transparent 40%),
+        #1b221e;
 }
 
 #welcome a {
@@ -154,4 +163,9 @@ nav a {
     margin: 0;
     font-size: 0.875rem;
     line-height: 1.4;
+}
+
+#heading {
+    text-align: center;
+
 }
