@@ -9,6 +9,7 @@ nav {
     background: #181818;
     padding: 16px 24px;
     display: flex;
+    align-items: center;
     gap: 24px;
     margin-bottom: 24px;
     color: #1ED760;
@@ -27,10 +28,50 @@ nav a.home-logo {
     color: #1ED760;
 }
 
-.brand {
+/* "Manage" dropdown, top right of nav */
+.manage {
     margin-left: auto;
-    font-family: "Fraunces", serif;
-    font-size: 1.25rem;
+    position: relative;
+}
+
+.manage summary {
+    list-style: none;
+    cursor: pointer;
+    color: #FFFFFF;
+    padding: 6px 16px;
+    border: 1px solid #ffffff1f;
+    border-radius: 999px;
+}
+
+.manage summary::-webkit-details-marker {
+    display: none;
+}
+
+.manage[open] summary,
+.manage summary:hover {
+    border-color: #1ED760;
+}
+
+.manage-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    min-width: 160px;
+    padding: 6px;
+    background: #2a2a2a;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px #00000080;
+    z-index: 10;
+}
+
+.manage-menu a {
+    display: block;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.manage-menu a:hover {
+    background: #3a3a3a;
 }
 
 .row {

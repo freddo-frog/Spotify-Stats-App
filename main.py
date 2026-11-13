@@ -71,14 +71,14 @@ def get_tracks():
     token = get_valid_token()
     time_range = request.args.get("time_range", "medium_term")
     results = fetch_top_tracks(token, time_range)
-    return render_template("top_tracks.html", results=results)
+    return render_template("top_tracks.html", results=results, time_range=time_range)
 #get most listened to artists
 @app.route("/top-artists")
 def get_artists():
     token = get_valid_token()
     time_range = request.args.get("time_range", "medium_term")
     results = fetch_top_artists(token, time_range)
-    return render_template("top_artists.html", results=results)
+    return render_template("top_artists.html", results=results, time_range=time_range)
 
 #get recently played tracks
 @app.route("/recently-played")

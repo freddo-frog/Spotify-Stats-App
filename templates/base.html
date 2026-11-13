@@ -16,7 +16,12 @@
         <a href="{{ url_for('get_tracks') }}">Top Tracks</a>
         <a href="{{ url_for('get_artists') }}">Top Artists</a>
         <a href="{{ url_for('get_recently_played') }}">Recently Played</a>
-        <span class="brand"> Rewind</span>
+        <details class="manage">
+            <summary>Manage</summary>
+            <div class="manage-menu">
+                <a href="{{ url_for('logout') }}">Log out</a>
+            </div>
+        </details>
     </nav>
 
     {% block content %}{% endblock %}
