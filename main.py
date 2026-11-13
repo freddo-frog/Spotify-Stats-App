@@ -120,16 +120,6 @@ def fetch_recently_played(token):
         results.append(f"{song_name} - {artist_name}\n played at: {played_at}")
     return results
 
-#=== dashboard route ===
-@app.route("/dashboard")
-def dashboard():
-    token = get_valid_token()
-    time_range = request.args.get("time_range", "medium_term")
-    tracks = fetch_top_tracks(token, time_range)
-    artists = fetch_top_artists(token, time_range)
-    recents = fetch_recently_played(token)
-    return render_template("dashboard.html", tracks =tracks, artists=artists, recently_played=recents)
-
 @app.route("/")
 def home():
     return render_template("index.html") #SENDS USER TO LANDING PAGE INDEX.HTML
