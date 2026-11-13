@@ -95,8 +95,22 @@ def fetch_top_tracks(token, time_range):
     results=[]
     for item in data ["items"]:
         song_name=item["name"]
-        artist_name = item["artists"][0]["name"]
-        results.append(f"{song_name} - {artist_name}")
+        artist_names = [artist["name"] for artist in item["artists"]]  # ["Future", "Metro Boomin"]
+        artists = ", ".join(artist_names)                             # "Future, Metro Boomin"
+
+        images = item["album"]["images"]  # largest first: 640px, 300px, 64px
+        if len(images) > 1:
+            image_url = images[1]["url"]  # 300px: sharp at 56px, even on retina screens
+        elif images:
+            image_url = images[0]["url"]  # only one size available, use it
+        else:
+            image_url = None              # no artwork (e.g. local files)
+        results.append({
+            "name": song_name,
+            "artists": artists,
+            "image": image_url,
+            "url": item["external_urls"]["spotify"],
+        })
     return results
 
 def fetch_top_artists(token, time_range):

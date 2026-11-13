@@ -3,10 +3,28 @@
 {% block content %}
 <div id="tracks">
     <h1>Top Tracks</h1>
-    <ul>
+    <div class="track-list">
         {% for track in results %}
-        <li>{{ track }}</li>
+        <a class="track-row" href="{{ track.url }}" target="_blank" rel="noopener">
+            <span class="track-dot"></span>
+            <span class="track-rank">{{ loop.index }}</span>
+            {% if track.image %}
+            <img class="track-art" src="{{ track.image }}" alt="">
+            {% else %}
+            <div class="track-art track-art-empty"></div>
+            {% endif %}
+            <div class="track-info">
+                <div class="track-name">{{ track.name }}</div>
+                <div class="track-artists">{{ track.artists }}</div>
+            </div>
+            <svg class="track-spotify" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+                <circle cx="12" cy="12" r="10" fill="currentColor" />
+                <path d="M7 9.5c3.5-1 7-.6 10 1" stroke="#1f1f1f" />
+                <path d="M7.5 12.5c3-.8 5.8-.4 8.5 1" stroke="#1f1f1f" />
+                <path d="M8 15.3c2.4-.6 4.6-.3 6.6.8" stroke="#1f1f1f" />
+            </svg>
+        </a>
         {% endfor %}
-    </ul>
+    </div>
 </div>
 {% endblock %}

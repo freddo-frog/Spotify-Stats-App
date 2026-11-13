@@ -141,8 +141,8 @@ nav a.home-logo {
 #tracks {
     background: #181818;
     text-align: center;
-    width: 600px;
-    height: 500px;
+    max-width: 1000px;
+    padding: 8px 20px 20px;
     border-radius: 16px;
     margin: 0 auto;
 }
@@ -217,4 +217,83 @@ nav a.home-logo {
 #heading {
     text-align: center;
 
+}
+/* Top Tracks: one card row per track */
+.track-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.track-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 20px;
+    background: #1f1f1f;
+    border-radius: 16px;
+    color: #FFFFFF;
+    text-decoration: none;
+    text-align: left;
+    transition: background 0.2s;
+}
+
+.track-row:hover {
+    background: #2a2a2a;
+}
+
+.track-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4f8ae0;
+    flex-shrink: 0;
+}
+
+.track-rank {
+    width: 24px;
+    text-align: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.track-art {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.track-art-empty {
+    background: #333333;
+}
+
+.track-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.track-name {
+    font-weight: 600;
+}
+
+.track-artists {
+    color: #b3b3b3;
+    font-size: 0.9rem;
+    margin-top: 2px;
+}
+
+.track-name,
+.track-artists {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-spotify {
+    width: 24px;
+    height: 24px;
+    color: #FFFFFF;
+    flex-shrink: 0;
 }
